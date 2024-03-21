@@ -5,10 +5,10 @@ import Header from './Header'
 
 import { WiDayCloudy , WiBarometer , WiStrongWind  } from "react-icons/wi";
 import { FaSearch } from "react-icons/fa";
-import Wheater from './Wheater';
 
 
 function Query() {
+    const my_api_key = process.env.my_wheater_api_key;
     const navigate = useNavigate()
     const params = useParams()
     const [wheater,setWheater] = useState()
@@ -16,7 +16,7 @@ function Query() {
     useEffect(() => {
         const dataCheck = async() => {
             setLoading(true)
-            const data = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${params.city}&units=metric&appid=983d752dbe76ff721f7714af6600fe19`)
+            const data = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${params.city}&units=metric&appid=${my_api_key}`)
             setWheater(data)
             setLoading(false)
             console.log(data)
