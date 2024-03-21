@@ -36,7 +36,7 @@ function Query() {
         <div>
             <Header city={params.city}/>
 
-            <div className="mt-10 border border-gray-700 rounded-xl shadow-2xl p-5 container mx-auto">
+            <div className="mt-10 border border-gray-600 rounded-xl shadow-2xl p-5 container mx-auto">
                 <div className='flex justify-center text-3xl font-semibold'>
                     {wheater.data.name}
                 </div>
