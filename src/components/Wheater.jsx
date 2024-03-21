@@ -8,7 +8,7 @@ function Wheater() {
     const [city,setCity] = useState();
 
     const searchable = () => {
-        if(city != ""){
+        if(city  != null){
             navigate(`/search/${city}`)
         }
         else{
