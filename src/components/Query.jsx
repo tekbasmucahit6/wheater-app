@@ -8,7 +8,7 @@ import { FaSearch } from "react-icons/fa";
 
 
 function Query() {
-    const my_api_key = process.env.my_wheater_api_key;
+    // const my_api_key = process.env.my_wheater_api_key;
     const navigate = useNavigate()
     const params = useParams()
     const [wheater,setWheater] = useState()
@@ -16,7 +16,7 @@ function Query() {
     useEffect(() => {
         const dataCheck = async() => {
             setLoading(true)
-            const data = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${params.city}&units=metric&appid=${my_api_key}`)
+            const data = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${params.city}&units=metric&appid=67b10f4df5bc8d4bb7b5e2fdde7598ce`)
             setWheater(data)
             setLoading(false)
             console.log(data)
