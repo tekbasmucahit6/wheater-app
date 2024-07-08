@@ -15,7 +15,6 @@ function App() {
      <Router>
       <Routes>
         <Route path="/" element={<Main />}/>
-        <Route path="/search/:city" element={<Query />}/>
       </Routes>
      </Router>
     </>

@@ -1,60 +1,48 @@
-import axios from 'axios'
 import React, { useEffect, useState } from 'react'
-import { useNavigate, useParams } from 'react-router-dom'
-import Header from './Header'
 
 import { WiDayCloudy , WiBarometer , WiStrongWind  } from "react-icons/wi";
-import { FaSearch } from "react-icons/fa";
+import { LiaCitySolid } from "react-icons/lia";
+import { TbLocationSearch } from "react-icons/tb";
+import { WiHumidity } from "react-icons/wi";
 
 
-function Query() {
-    // const my_api_key = process.env.my_wheater_api_key;
-    const navigate = useNavigate()
-    const params = useParams()
-    const [wheater,setWheater] = useState()
-    const [loading,setLoading] = useState(true)
-    useEffect(() => {
-        const dataCheck = async() => {
-            setLoading(true)
-            const data = await axios.get(`https://api.openweathermap.org/data/2.5/weather?q=${params.city}&units=metric&appid=67b10f4df5bc8d4bb7b5e2fdde7598ce`)
-            setWheater(data)
-            setLoading(false)
-            console.log(data)
-        }
-        dataCheck()
-    },[])
+function Query({cityData}) {
+    console.log(cityData)
   return (
     <>
-    {
-        // loading
-    loading?
-    <div className='flex h-screen justify-center items-center'>
-        <strong className='text-red-700 font-semibold text-xl'>LOADİNG...</strong>
-    </div>
-    :
-    // eğer veriler çekilmişse
-        <div>
-            <Header city={params.city}/>
+        <div className='flex flex-col justify-center items-center'>
 
-            <div className="mt-10 border border-gray-600 rounded-xl shadow-2xl p-5 container mx-auto">
-                <div className='flex justify-center text-3xl font-semibold'>
-                    {wheater.data.name}
+            <div className="grid grid-cols-2 xl:grid-col-3 gap-10 mt-10 p-5 container mx-auto border shadow rounded-xl">
+                <div className='flex justify-center gap-3 items-center text-3xl font-semibold'>
+                    <LiaCitySolid className='text-5xl text-blue-500' />
+                    {cityData.name?cityData.name:"yükleniyor"}
                 </div>
-                <div className='flex font-semibold gap-2 mt-10 text-2xl justify-center items-center'>
-                    <WiDayCloudy className='font-semibold text-5xl text-yellow-500'/> {wheater.data.main.temp}
+                {/* sıcaklık */}
+                <div className='flex gap-2 text-2xl justify-center items-center'>
+                    <WiDayCloudy className='font-semibold text-5xl text-blue-600'/> {cityData.main?cityData.main.temp:"yükleniyor"}
                 </div>
-                <div className='flex font-semibold gap-2 mt-10 text-2xl justify-center items-center'>
-                    <WiBarometer className="font-semibold text-5xl text-yellow-500"/> {wheater.data.main.feels_like}
+                {/* hissedilen sıcaklık */}
+                <div className='flex gap-2 text-2xl justify-center items-center'>
+                    <WiBarometer className="font-semibold text-5xl text-blue-600"/> {cityData.main?cityData.main.feels_like:"yükleniyor"}
                 </div>
-                <div className='flex font-semibold gap-2 mt-10 text-2xl justify-center items-center'>
-                    <WiStrongWind className='font-semibold text-5xl text-yellow-500'/> {wheater.data.wind.speed}
+                {/* rüzgar hızı */}
+                <div className='flex gap-2 text-2xl justify-center items-center'>
+                    <WiStrongWind className='font-semibold text-5xl text-blue-600'/> {cityData.wind?cityData.wind.speed:"yükleniyor"}
                 </div>
-                <div className='flex justify-center items-center mt-10'>
-                    <button onClick={() => navigate("/")} className='p-4 flex items-center gap-3 rounded-lg bg-red-500 hover:bg-red-900 text-center text-white'>şehir ara <FaSearch /></button>
+                {/* deniz yüksekliği */}
+                <div className='flex gap-2 text-2xl justify-center items-center'>
+                    <TbLocationSearch className='font-semibold text-4xl text-blue-600'/> {cityData.main?cityData.main.sea_level:"yükleniyor"}
                 </div>
+                {/* nem */}
+                <div className='flex gap-2 text-2xl justify-center items-center'>
+                    <WiHumidity className='font-semibold text-5xl text-blue-600'/> {cityData.main?cityData.main.humidity:"yükleniyor"}
+                </div>
+
+            </div>
+            <div className='flex justify-center items-center text-white mt-10 shadow shadow-black bg-blue-600 rounded-lg p-3'>
+                <i>unutmayınız ki bu değerler ortalamadır!</i>
             </div>
         </div>
-}
     </>
       
   )
